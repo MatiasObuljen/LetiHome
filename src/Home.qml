@@ -121,9 +121,11 @@ Rectangle
     {
         id: appsLoader
         focus: true
-        x: 40
+        x: 20 // same margin as topBar
         y: r.settingsProvider.alignToBottom ? (parent.height - height - 20) : (topBar.height + 40) // 20 is spacing from top or bottom, 40 is topBar.y * 2
-        width: parent.width - 80 // x * 2
+        // each cell keeps 20 px of spacing after its card, so add one spacing to the usable width
+        // for the last card to end exactly where topBar ends
+        width: parent.width - 40 + 20
         height: sourceComponent === appsListComponent ? (item?.delegateHeight) : Math.min((parent.height - topBar.height - topBar.y * 2 - 20), item?.childrenRect.height) // if list use delegate height, if grid use available height but not more than needed
          Keys.onUpPressed: topBar.focus = true
 
