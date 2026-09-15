@@ -24,7 +24,7 @@ Item
         id: banner
         source: r.loadTVBanner ? "image://banner/" + r.appPackage : ""
         anchors.fill: parent
-        fillMode: Image.PreserveAspectFit
+        fillMode: Image.PreserveAspectCrop // banners are not always 16:9; crop like the Android TV launcher does
         cache: true
         asynchronous: r.async
     }
