@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shown by Qt until the first QML frame is ready (android.app.splash_screen_drawable). -->
+<color xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/window_background" />

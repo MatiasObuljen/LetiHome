@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Without a theme Android shows a white window with a title bar until Qt has loaded the QML.
+         Draw the window in the launcher's own background colour instead, so start-up is seamless. -->
+    <style name="LetiHomeTheme" parent="@android:style/Theme.Material.NoActionBar.Fullscreen">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+</resources>
