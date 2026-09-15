@@ -197,6 +197,7 @@ GridView
             color: gridView.state === "reorder" ? Qt.color("#AA000000") : Qt.color("#00000000")
             border.width: 1
             border.color: Qt.color("#222222")
+            radius: delegate.cardRadius
         }
 
         // Arrows indicating that the item can be moved left or right in reorder mode
