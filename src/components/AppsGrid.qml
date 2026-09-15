@@ -160,7 +160,7 @@ GridView
         height: width * 0.5625 // 9/16
 
         z: delegate.isCurrentItem ? 1 : 0
-        scale: delegate.isCurrentItem && gridView.state === "default" ? 1.3 : 1
+        scale: delegate.isCurrentItem && gridView.state === "default" ? 1.15 : 1 // 1.3 pushed the first and last card past the screen edge
         Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.InOutQuad } }
 
         appPackage: delegate.packageName
