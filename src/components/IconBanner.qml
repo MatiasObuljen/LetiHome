@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Effects
 import "ColorLogo.js" as ColorLogo
 
 Item
@@ -8,6 +9,15 @@ Item
     required property string appPackage
     property bool loadTVBanner: true
     property bool async: false
+    property real cardRadius: 6 // in the 1080p design this is about 12 px
+
+    // everything drawn in the card goes through a rounded mask
+    Item
+    {
+        id: content
+        anchors.fill: parent
+        layer.enabled: r.cardRadius > 0
+        layer.effect: MultiEffect { maskEnabled: true; maskSource: mask; maskThresholdMin: 0.5; maskSpreadAtMin: 1.0 }
 
     // background color based on app's dominant color, used when banner is not available or not wanted
     Rectangle
@@ -39,5 +49,16 @@ Item
         fillMode: Image.PreserveAspectFit
         asynchronous: r.async
         cache: true
+    }
+    }
+
+    Rectangle
+    {
+        id: mask
+        anchors.fill: parent
+        radius: r.cardRadius
+        color: Qt.color("#ffffff")
+        layer.enabled: true
+        visible: false
     }
 }
