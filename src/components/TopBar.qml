@@ -159,7 +159,7 @@ FocusScope
         Text
         {
             id: date
-            text: root.currentDate.toDateString()
+            text: root.currentDate.toLocaleDateString(Qt.locale(), "ddd d MMM yyyy") // toDateString() is always English
             font.pixelSize: 22
             color: Qt.color("#ffffff")
             style: Text.Outline
