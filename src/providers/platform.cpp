@@ -1,5 +1,9 @@
 #include <QCoreApplication>
 #include <QNetworkInformation>
+#include <QTimer>
+#ifdef Q_OS_ANDROID
+#include <QJniObject>
+#endif
 
 #include "platform.h"
 
@@ -19,6 +23,27 @@ void Platform::init()
     QObject::connect(networkInfo, &QNetworkInformation::transportMediumChanged, this, [this](auto transportMedium ) {
         this->setIsEthernet(transportMedium == QNetworkInformation::TransportMedium::Ethernet);
     });
+
+#ifdef Q_OS_ANDROID
+    // Fallback: on some devices the Android backend of QNetworkInformation never leaves
+    // Reachability::Unknown (seen on Android 7.1 / API 25 with Qt 6.5.3, WiFi connected and
+    // validated), so the network icon shows "offline" forever. Ask ConnectivityManager directly
+    // in that case and re-check every 10 seconds (one JNI call, negligible cost).
+    if (networkInfo->reachability() == QNetworkInformation::Reachability::Unknown) {
+        auto pollAndroidNetworkState = [this]() {
+            QJniObject context = QNativeInterface::QAndroidApplication::context();
+            jint state = QJniObject::callStaticMethod<jint>("hr/envizia/letihomeplus/LetiHomePlus", "networkState",
+                                                            "(Landroid/content/Context;)I", context.object());
+            this->setOnline(state != 0);
+            this->setIsEthernet(state == 2);
+        };
+        pollAndroidNetworkState();
+        auto *timer = new QTimer(this);
+        timer->setInterval(10000);
+        QObject::connect(timer, &QTimer::timeout, this, pollAndroidNetworkState);
+        timer->start();
+    }
+#endif
 
     this->setIsTelevision(this->isTelevision());
 }

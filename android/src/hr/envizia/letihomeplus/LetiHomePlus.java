@@ -16,6 +16,8 @@ import android.net.Uri;
 import android.media.tv.TvInputManager;
 import android.media.tv.TvInputInfo;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import androidx.tvprovider.media.tv.TvContractCompat;
 
 import java.io.ByteArrayOutputStream;
@@ -166,6 +168,18 @@ public class LetiHomePlus extends QtActivity
     }
 
     // open network settings based on connection type
+    // Network state as seen by Android: 0 = no network, 1 = WiFi, 2 = Ethernet, 3 = other.
+    // Used as a fallback when QNetworkInformation cannot tell (see Platform::init).
+    public static int networkState(Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = (cm == null) ? null : cm.getActiveNetworkInfo();
+        if (info == null || !info.isConnected()) return 0;
+        if (info.getType() == ConnectivityManager.TYPE_ETHERNET) return 2;
+        if (info.getType() == ConnectivityManager.TYPE_WIFI) return 1;
+        return 3;
+    }
+
     // isEthernet: true = open ethernet/general settings, false = open wifi settings
     public void openNetworkSettings(boolean isEthernet)
     {
