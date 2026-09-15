@@ -24,7 +24,7 @@
 
     <application android:name="org.qtproject.qt.android.bindings.QtApplication" android:hardwareAccelerated="true" android:label="-- %%INSERT_APP_NAME%% --" android:requestLegacyExternalStorage="true" android:allowBackup="true" android:fullBackupOnly="false" android:banner="@mipmap/ic_banner" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
 
-        <activity android:name=".LetiHomePlus" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize" android:screenOrientation="unspecified" android:exported="true" android:label="-- %%INSERT_APP_NAME%% --">
+        <activity android:name=".LetiHomePlus" android:theme="@style/LetiHomeTheme" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize" android:screenOrientation="unspecified" android:exported="true" android:label="-- %%INSERT_APP_NAME%% --">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -37,6 +37,8 @@
             </intent-filter>
             <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
             <meta-data android:name="android.app.arguments" android:value="-- %%INSERT_APP_ARGUMENTS%% --"/>
+            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splash_screen"/>
+            <meta-data android:name="android.app.splash_screen_sticky" android:value="false"/>
         </activity>
     </application>
 <uses-sdk android:minSdkVersion="23"/>

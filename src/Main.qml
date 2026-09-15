@@ -25,6 +25,9 @@ ApplicationWindow
 
     Material.theme: Material.Dark
     Material.accent: Material.Indigo
+    // shown between the Android window and the first Home frame; without it Qt paints the
+    // Material Dark grey (#1C1B1F) for a moment. Same colour as the default Home background.
+    background: Rectangle { color: Qt.color("#0D1B2A") }
 
     // providers / domain-models
     AppsProvider     { id: appsProvider }
